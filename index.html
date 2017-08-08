@@ -6,9 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ChatSocket</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <style>
-    #message{height: 300px;}
-  </style>
+  <style src="./css/style.css"></style>
 </head>
 <body>
   <div class="container">
@@ -32,90 +30,6 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-  <script>
-    (function(){
-      var element = function(id){
-        return document.getElementById(id);
-      }
-      // Get Elements
-      var status = element('status');
-      var messages = element('messages');
-      var textarea = element('textarea');
-      var username = element('username');
-      var clearBtn = element('clearBtn');
-
-      // Set default status
-      var statusDefault = status.textContent;
-
-      var setStatus = function(s){
-        // Set status
-        status.textContent = s;
-
-        if(s !== statusDefault){
-          var delay = setTimeout(function(){
-            setStatus(statusDefault);
-          }, 4000);
-        }
-      }
-      // Connect to socket.io
-      var socket = io.connect('http://127.0.0.1:4200');
-
-      // Check for connection
-      if(socket !== undefined){
-        console.log('Connected to socket ...');
-
-        // Handle Output
-        socket.on('output', function(data){
-          if(data.length){
-            for(var x = 0;x<data.length;x++){
-              // Build out message div
-              var message = document.createElement('div');
-              message.setAttribute('class', 'chat-message');
-              message.textContent = data[x].name+": "+data[x].message;
-              messages.appendChild(message);
-              messages.insertBefore(message, messages.firstChild);
-            }
-          }
-        });
-
-        // Get Status From Server
-        socket.on('status', function(data){
-          // Get message status
-          setStatus((typeof data ==='object')? data.message : data);
-
-          // If status is clear, clear text
-          if(data.clear){
-            textarea.value = '';
-          }
-        });
-
-        // Handle Input
-        textarea.addEventListener('keydown', function(event){
-          // 13 key enter || return
-          if(event.which === 13 && event.shiftKey == false){
-            // Emit to server input
-            socket.emit('input', {
-              name: username.value,
-              message: textarea.value
-            });
-
-            event.preventDefault();
-
-          }
-        })
-
-        // Handle chat clear
-        clearBtn.addEventListener('click',function(){
-          socket.emit('clear');
-        });
-
-        // Clear Message
-        socket.on('cleared', function(){
-          messages.textContent = '';
-        })
-      }
-
-    })();
-  </script>
+  <script src="./js/main.js"></script>
 </body>
 </html>
