@@ -6,26 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ChatSocket</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <style src="./css/style.css"></style>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3 col-sm-12">
         <h1 class="text-center">
-          Chatocket
+          ChatSocket
           <button id="clearBtn" class="btn btn-danger">Clear</button>
         </h1>
         <div id="status"></div>
         <div class="chat">
           <input type="text" id="username" class="form-control" placeholder="Enter username...">
-          <div class="card">
-            <div id="messages" class="card-block">
+          <ul class="card list-group list-group-flush" >
+
+            <div id="messages">
 
             </div>
-          </div>
-          <textarea  id="textarea" class="form-control" placeholder="Enter message ..."></textarea>
+          </ul>
         </div>
+          <textarea  id="textarea" class="form-control" placeholder="Enter message ..."></textarea>
       </div>
     </div>
   </div>

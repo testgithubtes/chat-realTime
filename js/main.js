@@ -35,8 +35,8 @@
       if(data.length){
         for(var x = 0;x<data.length;x++){
           // Build out message div
-          var message = document.createElement('div');
-          message.setAttribute('class', 'chat-message');
+          var message = document.createElement('li');
+          message.setAttribute('class', 'chat-message list-group-item');
           message.textContent = data[x].name+": "+data[x].message;
           messages.appendChild(message);
           messages.insertBefore(message, messages.firstChild);
@@ -55,6 +55,11 @@
       }
     });
 
+    // Key Press
+    textarea.addEventListener('keypress', ()=> {
+      socket.emit('typing', username.value );
+    });
+
     // Handle Input
     textarea.addEventListener('keydown', function(event){
       // 13 key enter || return
@@ -66,8 +71,9 @@
         });
 
         event.preventDefault();
-
+      textarea.value ='';
       }
+
     });
 
     // Handle chat clear
@@ -78,6 +84,11 @@
     // Clear Message
     socket.on('cleared', function(){
       messages.textContent = '';
+    });
+
+    // typing status
+    socket.on('typing', (data) => {
+      textarea.value =data+' is typing ...';
     });
   }
 

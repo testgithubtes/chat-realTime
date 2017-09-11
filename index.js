@@ -1,4 +1,5 @@
 const mongo = require('mongodb').MongoClient;
+const express = require('express');
 const client = require('socket.io').listen(4200).sockets;
 
 // Connect to mongo
@@ -58,6 +59,9 @@ mongo.connect('mongodb://127.0.0.1/mongochat', (err, db) => {
         // Emit cleared
         socket.emit('cleared');
       });
+    });
+    socket.on('typing', (data) => {
+      socket.broadcast.emit('typing', data);
     });
   });
 });

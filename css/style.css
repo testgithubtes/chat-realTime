@@ -1,1 +1,5 @@
-    #message{height: 300px;}
+.card{
+  height: 300px;
+  overflow: scroll;
+  background-color: #eee;
+}
